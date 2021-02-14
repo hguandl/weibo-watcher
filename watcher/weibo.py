@@ -25,6 +25,7 @@ import random
 import time
 from datetime import datetime
 
+import pytz
 import requests
 from dateutil import parser
 from lxml import etree
@@ -46,7 +47,7 @@ class WeiboWatcher(object):
         self.headers = WeiboWatcher._xhr_headers(uid)
         self.name = None
         self.weibo_cid = None
-        self.latest_date = datetime.now()
+        self.latest_date = datetime.now(pytz.UTC)
         self.latest_id = None
         self.setup()
 
