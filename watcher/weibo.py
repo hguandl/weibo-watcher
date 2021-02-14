@@ -46,7 +46,7 @@ class WeiboWatcher(object):
         self.headers = WeiboWatcher._xhr_headers(uid)
         self.name = None
         self.weibo_cid = None
-        self.latest_date = None
+        self.latest_date = datetime.now()
         self.latest_id = None
         self.setup()
 
@@ -109,10 +109,7 @@ class WeiboWatcher(object):
             for card in data['data']['cards']:
                 if card['card_type'] == 9:
                     datet = parser.parse(card['mblog']['created_at'])
-                    if self.latest_date is None:
-                        self.latest_date = datet
-                        self.latest_id = card['mblog']['id']
-                    elif datet > self.latest_date:
+                    if datet > self.latest_date:
                         ret = True
                         self.latest_date = datet
                         self.latest_id = card['mblog']['id']
