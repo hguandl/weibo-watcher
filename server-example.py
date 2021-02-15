@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Copyright (c) 2021 Hao Guan
 
@@ -20,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
-from notification.bark import bark_notify
-from notification.bark import custom_bark
+from notification.bark import bark_notify, custom_bark
 from notification.ifttt import ifttt_webhook
 from notification.tgbot import tgbot_notify
 from notification.wechat import work_wechat_notify
+from watcher.weibo import WeiboWatcher
 
 
 def callbacks(weibo):
@@ -44,3 +46,7 @@ def callbacks(weibo):
     tgbot_notify(weibo, "bot_api", ["chatid1", "chatid2"])
 
     work_wechat_notify(weibo, "corpid", "appid", "corpsecret")
+
+
+if __name__ == "__main__":
+    WeiboWatcher("6279793937").watch(callbacks)  # @明日方舟Arknights

@@ -41,13 +41,16 @@ class WeiboWatcher(object):
     """
     A watcher for new weibo published by user with <UID>.
     """
-    def __init__(self, uid: int) -> None:
+    def __init__(self, uid: int, debug: bool=False) -> None:
         super().__init__()
         self.uid = uid
         self.headers = WeiboWatcher._xhr_headers(uid)
         self.name = None
         self.weibo_cid = None
-        self.latest_date = datetime.now(pytz.UTC)
+        if debug:
+            self.latest_date = parser.parse("2000-01-01T00:00:00+00:00")
+        else:
+            self.latest_date = datetime.now(pytz.UTC)
         self.latest_id = None
         self.setup()
 
@@ -90,7 +93,6 @@ class WeiboWatcher(object):
             if tab["tab_type"] == "weibo":
                 self.weibo_cid = tab["containerid"]
                 break
-        self.update()
 
 
     def update(self) -> bool:
