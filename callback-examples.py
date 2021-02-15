@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 from notification.bark import bark_notify
 from notification.bark import custom_bark
+from notification.ifttt import ifttt_webhook
 from notification.tgbot import tgbot_notify
 from notification.wechat import work_wechat_notify
 
@@ -37,6 +38,8 @@ def callbacks(weibo):
     bark_notify(weibo, ["token1", "token2"])
 
     custom_bark(weibo, "Custom Bark server")
+
+    ifttt_webhook(weibo, [("key1", "event1"), ("key2", "event2")])
 
     tgbot_notify(weibo, "bot_api", ["chatid1", "chatid2"])
 
