@@ -40,6 +40,7 @@ def bark_notify(weibo: dict, api_tokens: list) -> None:
 def custom_bark(weibo: dict, api_url: str) -> None:
     """
     Notify <weibo> via custom Bark server at <api_url>
+    Customization example: https://github.com/hguandl/bark-server
     """
 
     requests.post(
