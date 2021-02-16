@@ -22,10 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
+import requests
+
 from notification.bark import bark_notify, custom_bark
 from notification.ifttt import ifttt_webhook
 from notification.tgbot import tgbot_notify
 from notification.wechat import work_wechat_notify
+from watcher.akanno import ArknightsAnnounceWatcher
 from watcher.weibo import WeiboWatcher
 
 
@@ -48,5 +51,18 @@ def callbacks(weibo):
     work_wechat_notify(weibo, "corpid", "appid", "corpsecret")
 
 
+def callbacks2(text):
+    if text is None:
+        return
+
+    requests.post(
+        "http://localhost:8585/feed",
+        data={
+            "text": text
+        }
+    )
+
+
 if __name__ == "__main__":
     WeiboWatcher("6279793937").watch(callbacks)  # @明日方舟Arknights
+    # ArknightsAnnounceWatcher().watch(callbacks2)
